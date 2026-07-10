@@ -1,0 +1,6 @@
+Lot ID,Description,Work Type,Spec/ITP Ref,Cost Code,Qty,UoM,Status,Opened,Work Complete,Conformed,Hold Point Released,Notes
+LOT-EW-0012,Ch 0950-1200 RHS select fill layer 1,EW,ITP-EW-01 / MRTS04 cl 9.2,02-230,1140,m3,Conformed,2026-05-28,2026-06-12,2026-06-18,Yes,Claimed PC-13
+LOT-EW-0013,Ch 1200-1350 LHS select fill layer 1,EW,ITP-EW-01 / MRTS04 cl 9.2,02-230,600,m3,Superseded,2026-06-02,,,No,Superseded by LOT-EW-0014 after design change
+LOT-EW-0014,Ch 1200-1350 LHS select fill layer 2,EW,ITP-EW-01 / MRTS04 cl 9.2,02-230,620,m3,Work complete,2026-06-10,2026-06-28,,Yes,Awaiting compaction results NATA-88412
+LOT-SW-0007,Line 4 MH4.2-MH4.5 RCP450 Class 4,SW,ITP-SW-02 / AS3725,03-110,86,lm,Work complete,2026-06-15,2026-06-30,,No,NCR open - bedding material
+LOT-PV-0003,Road 1 Ch 0000-0250 subbase,PV,ITP-PV-01 / MRTS05,05-120,410,m3,Open,2026-06-27,,,No,

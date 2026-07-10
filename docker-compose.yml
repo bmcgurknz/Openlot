@@ -1,0 +1,44 @@
+# OpenLot single-host deployment: API + web UI in one container, PostgreSQL
+# alongside. Put a TLS-terminating reverse proxy (Caddy, nginx, ALB) in
+# front — Procore webhooks and OAuth require HTTPS.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: openlot
+      POSTGRES_USER: openlot
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - openlot-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U openlot']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4400
+      APP_BASE_URL: ${APP_BASE_URL:?set APP_BASE_URL in .env}
+      DATABASE_URL: postgres://openlot:${POSTGRES_PASSWORD}@db:5432/openlot
+      PROCORE_CLIENT_ID: ${PROCORE_CLIENT_ID}
+      PROCORE_CLIENT_SECRET: ${PROCORE_CLIENT_SECRET}
+      PROCORE_BASE_URL: ${PROCORE_BASE_URL:-https://api.procore.com}
+      PROCORE_LOGIN_URL: ${PROCORE_LOGIN_URL:-https://login.procore.com}
+      PROCORE_COMPANY_ID: ${PROCORE_COMPANY_ID:-}
+      WEBHOOK_SHARED_SECRET: ${WEBHOOK_SHARED_SECRET}
+      TOKEN_ENCRYPTION_KEY: ${TOKEN_ENCRYPTION_KEY:?set TOKEN_ENCRYPTION_KEY in .env}
+      DEMO_MODE: ${DEMO_MODE:-false}
+    ports:
+      - '4400:4400'
+    restart: unless-stopped
+
+volumes:
+  openlot-pgdata:

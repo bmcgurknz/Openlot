@@ -1,0 +1,4 @@
+Field Label,Field Type,Tool,Required,Description
+Lot ID,Text,Observations,No,Lot identifier in the form LOT-XX-NNNN (e.g. LOT-EW-0014). Also prefix the observation title with the same ID.
+Chainage From,Text,Observations,No,Start chainage of the affected extent (e.g. Ch 1200)
+Chainage To,Text,Observations,No,End chainage of the affected extent (e.g. Ch 1350)

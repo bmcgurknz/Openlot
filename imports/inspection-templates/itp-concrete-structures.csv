@@ -1,0 +1,13 @@
+Template Name,Section,Item Number,Item Description,Response Type,Spec Reference
+ITP - Concrete structures,0. Lot setup,0.1,Inspection titled with lot ID (LOT-CO-NNNN - name) and element/pour extent stated,Pass/Fail,QA convention
+ITP - Concrete structures,1. Pre-pour,1.1,Formwork line level and robustness checked; release agent applied,Pass/Fail,AS 3610
+ITP - Concrete structures,1. Pre-pour,1.2,Reinforcement size spacing laps and cover per drawings (W),Pass/Fail,AS 3600 / drawings
+ITP - Concrete structures,1. Pre-pour,1.3,Cast-in items ferrules and joints positioned,Pass/Fail,Drawings
+ITP - Concrete structures,1. Pre-pour,1.4,Superintendent pre-pour release (H),Pass/Fail,Contract ITP schedule
+ITP - Concrete structures,2. Pour,2.1,Concrete mix design and docket match specification; slump within limits,Number,AS 1379 / MRTS70
+ITP - Concrete structures,2. Pour,2.2,Cylinders sampled for strength testing (record lot ID on test request),Text,AS 1012
+ITP - Concrete structures,2. Pour,2.3,Placement compaction and finishing per method statement,Pass/Fail,MRTS70
+ITP - Concrete structures,3. Post-pour,3.1,Curing regime applied for specified duration,Pass/Fail,MRTS70
+ITP - Concrete structures,3. Post-pour,3.2,Formwork stripping time satisfied; surface finish class achieved,Pass/Fail,AS 3610
+ITP - Concrete structures,3. Post-pour,3.3,28-day strength results conform,Pass/Fail,AS 1379
+ITP - Concrete structures,3. Post-pour,3.4,Dimensional survey of finished element within tolerance,Pass/Fail,Drawings

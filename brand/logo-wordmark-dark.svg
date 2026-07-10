@@ -1,0 +1,10 @@
+<svg width="480" height="96" viewBox="0 0 480 96" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Procore OpenLot wordmark (dark background)</title>
+<desc>Horizontal logo lockup for dark backgrounds: the OpenLot mark beside the Procore OpenLot wordmark and tagline, matching the in-app header.</desc>
+<rect x="6" y="6" width="84" height="84" rx="18" fill="#111417" stroke="#2a2f35" stroke-width="1.5"/>
+<path d="M35 30 L35 65 L70 65" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M44 49 L52 58 L69 35" fill="none" stroke="#f05b2b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="72" cy="26" r="4.5" fill="#1b66c9"/>
+<text x="108" y="48" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="26" letter-spacing="1.2" fill="#ffffff">PROC<tspan fill="#f05b2b">O</tspan>RE<tspan font-weight="400" letter-spacing="0.2" dx="8">| OpenLot</tspan></text>
+<text x="108" y="70" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="12.5" letter-spacing="0.8" fill="#9aa4ad">LOT CONFORMANCE FOR PROCORE</text>
+</svg>

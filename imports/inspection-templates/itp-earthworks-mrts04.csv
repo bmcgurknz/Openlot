@@ -1,0 +1,13 @@
+Template Name,Section,Item Number,Item Description,Response Type,Spec Reference
+ITP - Earthworks (MRTS04 style),0. Lot setup,0.1,Inspection titled with lot ID (LOT-EW-NNNN - name) and lot extent stated (chainage from-to / side / layer),Pass/Fail,QA convention
+ITP - Earthworks (MRTS04 style),0. Lot setup,0.2,Survey set-out conformance report attached or referenced,Pass/Fail,MRTS56
+ITP - Earthworks (MRTS04 style),1. Pre-placement,1.1,Stripped surface / previous layer approved and free of deleterious material (S),Pass/Fail,MRTS04 cl 8
+ITP - Earthworks (MRTS04 style),1. Pre-placement,1.2,Material source and classification approved for use in this zone,Pass/Fail,MRTS04 cl 7
+ITP - Earthworks (MRTS04 style),1. Pre-placement,1.3,Moisture conditioning within specified range,Number,MRTS04 cl 9
+ITP - Earthworks (MRTS04 style),2. Placement & compaction,2.1,Layer thickness (compacted) within specification,Number,MRTS04 cl 9.2
+ITP - Earthworks (MRTS04 style),2. Placement & compaction,2.2,Compaction test requests issued to NATA laboratory (record lot ID on request),Text,MRTS04 Table 9.2
+ITP - Earthworks (MRTS04 style),2. Placement & compaction,2.3,Relative compaction results meet characteristic value for the zone,Pass/Fail,MRTS04 Table 9.2
+ITP - Earthworks (MRTS04 style),3. Surface,3.1,Proof roll completed - no visible deformation / pumping (W),Pass/Fail,MRTS04 cl 10
+ITP - Earthworks (MRTS04 style),3. Surface,3.2,Surface level and shape survey within tolerance,Pass/Fail,MRTS04 cl 11
+ITP - Earthworks (MRTS04 style),4. Release,4.1,Superintendent release of hold point to place next layer (H),Pass/Fail,Contract ITP schedule
+ITP - Earthworks (MRTS04 style),4. Release,4.2,All NCRs on this lot closed,Pass/Fail,QA plan

@@ -1,0 +1,12 @@
+{
+  "id": 998879,
+  "timestamp": "2026-07-05T04:20:00Z",
+  "resource_name": "Checklist Lists",
+  "event_type": "update",
+  "resource_id": 900777,
+  "project_id": 316,
+  "company_id": 4001,
+  "api_version": "v1.1",
+  "user_id": 220042,
+  "_note": "The referenced inspection is titled 'Weekly site safety walk' — no lot ID. OpenLot logs outcome ignored_no_lot_id and changes nothing."
+}

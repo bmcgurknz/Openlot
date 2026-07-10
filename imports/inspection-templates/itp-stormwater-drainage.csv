@@ -1,0 +1,13 @@
+Template Name,Section,Item Number,Item Description,Response Type,Spec Reference
+ITP - Stormwater drainage,0. Lot setup,0.1,Inspection titled with lot ID (LOT-SW-NNNN - name) and line/structure extent stated (MH to MH),Pass/Fail,QA convention
+ITP - Stormwater drainage,1. Pre-lay,1.1,Trench excavation to design line and level; ground conditions as assumed (S),Pass/Fail,Project spec / IPWEA
+ITP - Stormwater drainage,1. Pre-lay,1.2,Bedding material conforms (grading certificate on file),Pass/Fail,AS/NZS 3725
+ITP - Stormwater drainage,1. Pre-lay,1.3,Pipe class and jointing as per drawings; pipes undamaged on delivery,Pass/Fail,AS/NZS 4058
+ITP - Stormwater drainage,2. Laying,2.1,Bedding compacted and screeded to grade (W),Pass/Fail,AS/NZS 3725
+ITP - Stormwater drainage,2. Laying,2.2,Pipe laid to line and grade - as-laid survey within tolerance,Number,Project spec
+ITP - Stormwater drainage,2. Laying,2.3,Joints made and lubricated per manufacturer; deflection within limits,Pass/Fail,Manufacturer / AS/NZS 3725
+ITP - Stormwater drainage,3. Backfill,3.1,Haunch and side support placed and compacted in layers,Pass/Fail,AS/NZS 3725
+ITP - Stormwater drainage,3. Backfill,3.2,Trench backfill compaction test requests issued (record lot ID),Text,Project spec
+ITP - Stormwater drainage,4. Acceptance,4.1,CCTV / mirror test - no defects joints displacement or debris (W),Pass/Fail,Project spec
+ITP - Stormwater drainage,4. Acceptance,4.2,Structures (pits/manholes) benched sealed and finished,Pass/Fail,Project spec
+ITP - Stormwater drainage,4. Acceptance,4.3,Superintendent release prior to trench closure over joints (H),Pass/Fail,Contract ITP schedule

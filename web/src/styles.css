@@ -1,0 +1,406 @@
+/* Procore OpenLot — styled to sit alongside the Procore web UI:
+   black top bar with the wordmark, Procore orange for primary actions,
+   blue for links and stage pills, light grey canvas with white rounded
+   cards. Monospace is kept for register data (lot IDs, chainage,
+   quantities, dates); status is told by the five-notch lot bar. */
+
+:root {
+  --sheet: #f5f6f7;        /* Procore page canvas grey */
+  --panel: #ffffff;
+  --ink: #1e2b37;          /* body text */
+  --ink-soft: #6a7681;
+  --line: #e0e4e8;         /* card/table hairlines */
+  --line-strong: #c9d0d6;
+  --conform: #1e7a46;      /* conformed green */
+  --hold: #c07400;         /* hold point amber */
+  --ncr: #c0392b;          /* non-conformance red */
+  --peg: #1b66c9;          /* Procore link blue */
+  --procore-orange: #f05b2b;   /* primary action */
+  --procore-orange-dark: #d44a1d;
+  --topbar: #111417;       /* Procore black header */
+  --pill-bg: #e5f0fb;      /* stage-pill light blue */
+  --radius: 8px;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--sheet);
+  color: var(--ink);
+  font: 14px/1.5 var(--sans);
+}
+
+button { font: inherit; }
+
+a { color: var(--peg); }
+
+/* ---- Title block header --------------------------------------------- */
+
+.titleblock {
+  display: flex;
+  align-items: stretch;
+  background: var(--topbar);
+  color: #fff;
+  min-height: 56px;
+}
+
+.titleblock .brand {
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.titleblock .brand h1 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.titleblock .brand h1 .dot { color: var(--procore-orange); }
+.titleblock .brand h1 .mono {
+  color: #fff;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-family: var(--sans);
+}
+
+.titleblock .brand p {
+  margin: 0;
+  font-size: 10px;
+  color: #9aa4ad;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.titleblock nav {
+  display: flex;
+  align-items: stretch;
+  margin-left: 12px;
+}
+
+.titleblock nav button {
+  background: none;
+  border: none;
+  padding: 0 18px;
+  cursor: pointer;
+  color: #c3cad0;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.titleblock nav button[aria-current='true'] {
+  color: #fff;
+  box-shadow: inset 0 -3px 0 var(--procore-orange);
+  font-weight: 600;
+}
+
+.titleblock nav button:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--procore-orange);
+  outline-offset: 2px;
+}
+
+.titleblock .conn {
+  margin-left: auto;
+  align-self: center;
+  padding: 0 20px;
+  font-size: 12px;
+  color: #9aa4ad;
+}
+
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+/* ---- Register table --------------------------------------------------- */
+
+.register-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.register-head h2 { margin: 0; font-size: 16px; }
+
+.register-head .count { color: var(--ink-soft); font-size: 13px; }
+
+.register-head .spacer { flex: 1; }
+
+table.register {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(20, 32, 46, 0.06);
+}
+
+table.register th {
+  text-align: left;
+  font-size: 12px;
+  color: var(--ink);
+  font-weight: 600;
+  padding: 10px;
+  border-bottom: 1px solid var(--line-strong);
+  background: #fafbfc;
+}
+
+table.register td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+table.register tr.clickable { cursor: pointer; }
+table.register tr.clickable:hover td { background: #f0f6fd; }
+table.register tr.superseded td { color: var(--ink-soft); text-decoration: line-through; }
+table.register tr.superseded td .lotbar { text-decoration: none; }
+
+.mono { font-family: var(--mono); font-size: 13px; }
+.num { text-align: right; font-family: var(--mono); font-size: 13px; }
+.dim { color: var(--ink-soft); }
+
+/* ---- Lot bar: the five-notch status strip ----------------------------- */
+
+.lotbar {
+  display: inline-flex;
+  gap: 2px;
+  vertical-align: middle;
+}
+
+.lotbar i {
+  width: 16px;
+  height: 8px;
+  background: var(--sheet);
+  border: 1px solid var(--line-strong);
+}
+
+.lotbar i.done { background: var(--ink); border-color: var(--ink); }
+.lotbar i.conform { background: var(--conform); border-color: var(--conform); }
+.lotbar.superseded i { background: repeating-linear-gradient(45deg, #fff, #fff 2px, var(--line-strong) 2px, var(--line-strong) 4px); }
+
+.status-word { font-size: 12px; margin-left: 8px; }
+.status-word.conformed { color: var(--conform); font-weight: 600; }
+.status-word.blocked { color: var(--ncr); }
+
+/* ---- Chips & badges ---------------------------------------------------- */
+
+.chip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  border: 1px solid transparent;
+}
+
+.chip.pass { background: #e7f4ec; }
+.chip.fail, .chip.open-ncr { background: #fbeae7; }
+.chip.pending { background: #fdf3e3; }
+.chip.neutral { background: #eef1f4; }
+
+.chip.pass { color: var(--conform); }
+.chip.fail, .chip.open-ncr { color: var(--ncr); }
+.chip.pending { color: var(--hold); }
+.chip.neutral { color: var(--ink-soft); }
+
+/* ---- Detail layout ------------------------------------------------------ */
+
+.crumbs { font-size: 12px; margin-bottom: 10px; }
+.crumbs button { background: none; border: none; color: var(--peg); cursor: pointer; padding: 0; }
+
+.dossier {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 860px) {
+  .dossier { grid-template-columns: 1fr; }
+  .titleblock { flex-wrap: wrap; }
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(20, 32, 46, 0.06);
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.card > header {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card > .body { padding: 14px; }
+
+.card table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.card table td, .card table th { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+.card table tr:last-child td { border-bottom: none; }
+
+dl.specs { margin: 0; display: grid; grid-template-columns: 130px 1fr; row-gap: 6px; font-size: 13px; }
+dl.specs dt { color: var(--ink-soft); }
+dl.specs dd { margin: 0; }
+
+/* ---- Conformance panel --------------------------------------------------- */
+
+.gate {
+  border-left: 4px solid var(--hold);
+}
+
+.gate.eligible { border-left-color: var(--conform); }
+
+.gate ul { margin: 8px 0 0; padding-left: 18px; }
+.gate li { margin-bottom: 6px; font-size: 13px; }
+
+.blocker-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ncr);
+  display: block;
+}
+
+/* ---- Buttons -------------------------------------------------------------- */
+
+.btn {
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.btn:hover { background: var(--sheet); }
+.btn.primary { background: var(--procore-orange); border-color: var(--procore-orange); color: #fff; }
+.btn.primary:hover { background: var(--procore-orange-dark); }
+.btn.conform { background: var(--conform); border-color: var(--conform); color: #fff; }
+.btn.conform:disabled { background: var(--line); border-color: var(--line); color: var(--ink-soft); cursor: not-allowed; }
+.btn.small { padding: 3px 9px; font-size: 12px; }
+.btn + .btn { margin-left: 8px; }
+
+/* ---- Forms ------------------------------------------------------------------ */
+
+form.inline { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
+form.inline label { display: flex; flex-direction: column; font-size: 11px; color: var(--ink-soft); gap: 3px; }
+form.inline input, form.inline select {
+  font: 13px var(--mono);
+  padding: 6px 8px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--ink);
+  min-width: 90px;
+}
+
+.error-band {
+  border: 1px solid var(--ncr);
+  border-left-width: 4px;
+  background: #fdf1ef;
+  color: var(--ncr);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  white-space: pre-line;
+}
+
+.notice-band {
+  border: 1px solid var(--conform);
+  border-left-width: 4px;
+  background: #eef7f1;
+  color: var(--conform);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+
+.empty {
+  padding: 28px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+/* ---- Tabs (lot detail: Overview / History) --------------------------- */
+
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.tab-bar .btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* ---- Sortable register columns ---------------------------------------- */
+
+table.register th.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+table.register th.sortable:hover { background: #eef2f6; }
+
+table.register th .sort-arrow {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 10px;
+  color: var(--ink-soft);
+}
+
+table.register th.sort-active .sort-arrow { color: var(--ink); }
+
+/* ---- Import wizard step indicator -------------------------------------- */
+
+.wizard-step {
+  margin-right: 14px;
+  color: var(--ink-soft);
+}
+
+.wizard-step.active {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ---- Reports dashboard ------------------------------------------------- */
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card, table.register { transition: box-shadow 120ms ease; }
+}

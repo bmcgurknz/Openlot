@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>OpenLot mark</title>
+<desc>A lot-corner survey marker with a conformance checkmark and a geo-reference point, on a dark rounded square.</desc>
+<rect width="128" height="128" rx="28" fill="#111417"/>
+<path d="M44 36 L44 90 L98 90" fill="none" stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M58 66 L70 79 L96 44" fill="none" stroke="#f05b2b" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="100" cy="30" r="7" fill="#1b66c9"/>
+</svg>
