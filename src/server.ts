@@ -69,8 +69,19 @@ export function buildApp({ config, repo, procore }: AppDeps): FastifyInstance {
   // would silently break the embedded launch — scope any CSP
   // frame-ancestors to Procore's domains instead of disabling embedding.
 
-  // Serve the built web UI when present (single-container deployment).
-  const webDist = join(dirname(fileURLToPath(import.meta.url)), '../web/dist');
+  // Serve the built web UI when present (single-container/single-service
+  // deployment, e.g. Render, Docker). This file compiles to
+  // dist/src/server.js (tsconfig's rootDir is the project root, so the
+  // output mirrors src/ under dist/src/), and the built frontend lives at
+  // web/dist — a sibling of dist/, not a child of it. So from
+  // dist/src/server.js this needs TWO levels up (dist/src -> dist ->
+  // project root) before descending into web/dist. Confirmed against the
+  // Dockerfile, which copies the frontend build to /app/web/dist
+  // alongside /app/dist — a single '../web/dist' here previously resolved
+  // to dist/web/dist, which never exists, so the web UI silently never
+  // got served in any real single-process deployment (this was
+  // undetected until an actual deploy was attempted).
+  const webDist = join(dirname(fileURLToPath(import.meta.url)), '../../web/dist');
   if (existsSync(webDist)) {
     void app.register(fastifyStatic, { root: webDist, prefix: '/' });
     app.setNotFoundHandler((req, reply) => {
