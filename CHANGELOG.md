@@ -4,9 +4,29 @@ All notable changes to OpenLot are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com) and the project adheres to
 [Semantic Versioning](https://semver.org).
 
-## [1.4.0] — 2026-07-10 (in progress — see docs/reporting-app.md before relying on this)
+## [1.4.0] — 2026-07-11
+
+### Fixed — CI, GitHub Pages and Docker builds of the web UI
+- The web UI build failed on every clean checkout (GitHub Actions CI, the
+  Pages deploy, and the Docker `web-build` stage) with
+  `Cannot find module 'xlsx'` in `src/lib/import/xlsx.ts`: the web app
+  imports shared code from the repo root `src/`, and those root files
+  resolve their packages from the ROOT `node_modules`, which none of the
+  three build contexts installed. It worked on developer machines only
+  because the root install was already present. All three now install the
+  root dependencies (and the Dockerfile copies root `src/` into the
+  web-build stage).
+- The Pages workflow now enables GitHub Pages itself
+  (`actions/configure-pages` with `enablement: true`) instead of failing
+  until someone flips the repository setting by hand.
+- `/api/health` reported a hardcoded `"version": "1.0.0"` regardless of
+  the actual release; it now reads the version from `package.json`.
 
 ### Added — cross-tool reporting dashboard & Marketplace embedding
+_The reporting/embedding work below still needs a one-time verification
+pass against a live Procore sandbox (deep-link URL patterns and the
+embedded-launch `?project_id=` query param) — see docs/reporting-app.md
+and docs/marketplace-publishing-guide.md before relying on it._
 - New **Reports** dashboard (server edition + live Procore connection
   only): live, read-only summaries of Quality & Safety (Inspections,
   Observations, Incidents), Field Productivity (Punch List, Daily Log

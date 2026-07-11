@@ -21,18 +21,23 @@ jobs:
   web:
     name: Web — typecheck & build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: web/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      # The web UI imports shared code from the repo root src/ (see
+      # web/src/local.ts), and those root files resolve their own packages
+      # (xlsx) from the ROOT node_modules — both installs are required.
+      - run: npm ci
       - run: npm ci || npm install
+        working-directory: web
       - run: npm run build
+        working-directory: web
 
   docker:
     name: Docker image builds

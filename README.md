@@ -84,7 +84,7 @@ Procore Enterprise import files (ITP inspection templates, observation custom fi
 
 ## Project status
 
-Version 1.0.0 — see [CHANGELOG.md](CHANGELOG.md) and [ROADMAP.md](ROADMAP.md). Contributions welcome: [CONTRIBUTING.md](CONTRIBUTING.md).
+Version 1.4.0 — see [CHANGELOG.md](CHANGELOG.md) and [ROADMAP.md](ROADMAP.md). Contributions welcome: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## What OpenLot is not
 

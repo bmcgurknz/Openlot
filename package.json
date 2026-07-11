@@ -1,6 +1,6 @@
 {
   "name": "procore-openlot",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Procore OpenLot \u2014 lot management and conformance engine for civil construction, aligned to ATS 1120 Quality Management Requirements",
   "license": "MIT",
   "type": "module",

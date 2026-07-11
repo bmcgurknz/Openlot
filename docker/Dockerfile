@@ -1,9 +1,17 @@
 # ---- Build stage: web UI ----------------------------------------------------
+# The web UI imports shared code from the repo root src/ (see
+# web/src/local.ts), and those root files resolve their own packages (xlsx)
+# from the ROOT node_modules — so this stage needs the root install and the
+# root src/ tree alongside web/, not just web/ on its own.
 FROM node:22-alpine AS web-build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --no-audit --no-fund
+COPY web/package*.json web/
+RUN cd web && (npm ci --no-audit --no-fund || npm install --no-audit --no-fund)
+COPY src/ src/
+COPY web/ web/
 WORKDIR /app/web
-COPY web/package*.json ./
-RUN npm ci --no-audit --no-fund || npm install --no-audit --no-fund
-COPY web/ ./
 RUN npm run build
 
 # ---- Build stage: API --------------------------------------------------------

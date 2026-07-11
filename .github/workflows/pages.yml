@@ -24,11 +24,22 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: web/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      # The web UI imports shared code from the repo root src/ (see
+      # web/src/local.ts), and those root files resolve their own packages
+      # (xlsx) from the ROOT node_modules — both installs are required.
+      - run: npm ci
       - run: npm ci || npm install
         working-directory: web
       - run: npm run build:static
         working-directory: web
+      # Enables Pages (source: GitHub Actions) on first run so the deploy
+      # job works without touching repository settings by hand.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist-static

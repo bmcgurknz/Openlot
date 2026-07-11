@@ -1,7 +1,4 @@
 import { randomBytes } from 'node:crypto';
-import { existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import Fastify, { type FastifyInstance } from 'fastify';
 import cookie from '@fastify/cookie';
 import cors from '@fastify/cors';
@@ -9,6 +6,7 @@ import fastifyStatic from '@fastify/static';
 import { z } from 'zod';
 import type { Config } from './config.js';
 import type { Repository } from './db/repository.js';
+import { packageVersion, webDistDir } from './lib/paths.js';
 import { ProcoreClient } from './procore/client.js';
 import { ClaimService } from './services/claims.js';
 import { LotService, LotServiceError } from './services/lots.js';
@@ -70,19 +68,16 @@ export function buildApp({ config, repo, procore }: AppDeps): FastifyInstance {
   // frame-ancestors to Procore's domains instead of disabling embedding.
 
   // Serve the built web UI when present (single-container/single-service
-  // deployment, e.g. Render, Docker). This file compiles to
-  // dist/src/server.js (tsconfig's rootDir is the project root, so the
-  // output mirrors src/ under dist/src/), and the built frontend lives at
-  // web/dist — a sibling of dist/, not a child of it. So from
-  // dist/src/server.js this needs TWO levels up (dist/src -> dist ->
-  // project root) before descending into web/dist. Confirmed against the
-  // Dockerfile, which copies the frontend build to /app/web/dist
-  // alongside /app/dist — a single '../web/dist' here previously resolved
-  // to dist/web/dist, which never exists, so the web UI silently never
-  // got served in any real single-process deployment (this was
-  // undetected until an actual deploy was attempted).
-  const webDist = join(dirname(fileURLToPath(import.meta.url)), '../../web/dist');
-  if (existsSync(webDist)) {
+  // deployment, e.g. Render, Docker). The frontend build lives at
+  // web/dist relative to the PROJECT root, but this module runs from a
+  // different depth in dev (src/server.ts via tsx) vs production
+  // (dist/src/server.js — tsconfig's rootDir mirrors src/ under dist/),
+  // so a fixed relative path is wrong in one of the two layouts. Walk up
+  // from wherever this module actually is instead, same as
+  // migrationsDir(); a previous fixed '../../web/dist' served the UI in
+  // production but silently never in dev.
+  const webDist = webDistDir(import.meta.url);
+  if (webDist) {
     void app.register(fastifyStatic, { root: webDist, prefix: '/' });
     app.setNotFoundHandler((req, reply) => {
       if (req.method === 'GET' && !req.url.startsWith('/api') && !req.url.startsWith('/webhooks')) {
@@ -107,7 +102,7 @@ export function buildApp({ config, repo, procore }: AppDeps): FastifyInstance {
 
   /* ---- Health & meta ------------------------------------------------ */
 
-  app.get('/api/health', async () => ({ status: 'ok', version: '1.0.0', demoMode: config.DEMO_MODE }));
+  app.get('/api/health', async () => ({ status: 'ok', version: packageVersion(import.meta.url), demoMode: config.DEMO_MODE }));
   app.get('/api/work-types', async () => WORK_TYPES);
 
   app.get('/api/connection', async () => {

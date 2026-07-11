@@ -1,7 +1,9 @@
 node_modules/
 dist/
 web/dist/
+web/dist-static/
 web/node_modules/
 .env
 *.log
 coverage/
+.claude/
