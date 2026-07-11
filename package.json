@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "dev:demo": "cross-env DEMO_MODE=true tsx watch src/index.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node dist/src/index.js",
     "start:demo": "cross-env DEMO_MODE=true node dist/src/index.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",

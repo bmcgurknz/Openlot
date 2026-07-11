@@ -15,15 +15,16 @@ WORKDIR /app/web
 RUN npm run build
 
 # ---- Build stage: API --------------------------------------------------------
+# Compiles src/ only (tsconfig.build.json) — the full tsconfig also
+# compiles tests/, and the static-edition integration test imports
+# web/src/, which isn't part of this stage.
 FROM node:22-alpine AS api-build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --no-audit --no-fund
-COPY tsconfig.json vitest.config.ts ./
+COPY tsconfig.json tsconfig.build.json ./
 COPY src/ src/
-COPY scripts/ scripts/
-COPY tests/ tests/
-RUN npx tsc -p tsconfig.json
+RUN npx tsc -p tsconfig.build.json
 
 # ---- Runtime ------------------------------------------------------------------
 FROM node:22-alpine
