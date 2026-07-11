@@ -35,11 +35,19 @@ jobs:
         working-directory: web
       - run: npm run build:static
         working-directory: web
-      # Enables Pages (source: GitHub Actions) on first run so the deploy
-      # job works without touching repository settings by hand.
+      # NOTE: on a personal (user-owned) repo, GitHub does not allow the
+      # workflow's GITHUB_TOKEN to CREATE the Pages site ("Resource not
+      # accessible by integration"), so `enablement: true` only helps once
+      # Pages already exists. First-time setup is one manual click:
+      # Settings → Pages → Source → "GitHub Actions". After that this step
+      # always succeeds.
       - uses: actions/configure-pages@v5
+        id: pages
         with:
           enablement: true
+      - if: failure() && steps.pages.outcome == 'failure'
+        run: |
+          echo "::error::GitHub Pages is not enabled for this repository, and the workflow token is not allowed to enable it. Fix (one time): open Settings → Pages and set Source to 'GitHub Actions', then re-run this workflow. https://github.com/${{ github.repository }}/settings/pages"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist-static
